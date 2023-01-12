@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+  *{
+    @apply box-border m-0 p-0;
+  }
+}
+
+@layer components{
+  .text-input{
+    @apply p-1 outline-none border-2;
+  }
+  .formbutton {
+    @apply mx-2 border-[1px] p-1 px-2 ;
+  }
+}

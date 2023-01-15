@@ -1,9 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useState } from 'react'
 import Form from '../components/Form'
+import Navbar from '../components/Navbar'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const [controllerType,setControllerType] = useState<String>("get") 
+  const navlinks: String[] = [
+    "get","post","patch","update","delete","middleware"
+  ]
   return (
     <div className={styles.container}>
       <Head>
@@ -13,8 +19,10 @@ export default function Home() {
       </Head>
 
       <main className='w-[800px] my-10 mx-auto'>
-        <h2 className='text-3xl font-semibold '>Create your controller</h2>
-        <Form />
+        
+        <h2 className='text-3xl font-semibold  '>Create your controller</h2>
+        <Navbar navlinks={navlinks} controllerType = {controllerType} setControllerType = {setControllerType} />
+        <Form Type = {controllerType} />
         {/* <h1 clas
         <Form /> */}
       </main>

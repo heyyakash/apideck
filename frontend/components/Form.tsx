@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useFieldArray } from 'react-hook-form'
 
-const Form = ({}) => {
-  // type request = {
-  //   e
-  // }
+type prop = {
+  Type: String
+}
 
-
+const Form = (props:prop) => {
   const { handleSubmit, control, reset, register } = useForm()
   const [queries, setQueries] = useState(false);
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
@@ -18,9 +17,11 @@ const Form = ({}) => {
   const[success,setSuccess] = useState<Boolean>(false)
   const[data,setData] = useState<null | string>(null)
 
+
+
   const submit = async (data: any) => {
     console.log("Sent")
-    const res = await fetch('http://localhost:5000',{
+    const res = await fetch(`http://localhost:5000/${props.Type}`,{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -38,7 +39,7 @@ const Form = ({}) => {
   return (
     <>
     <form onSubmit={handleSubmit(submit)} className='mt-10'>
-      <h3 className="text-xl">GET Request</h3>
+      <h3 className="text-xl">{props.Type} Request</h3>
       <div>
         <div className='grid grid-rows-1 gap-2 mt-4 grid-cols-2'>
 
@@ -71,13 +72,13 @@ const Form = ({}) => {
               {fields.map((item, index) => (
                 <li key={item.id}>
                   <input className='text-input my-[.1rem]' {...register(`Queries.${index}`)} placeholder = "Query" value={"Query"} />
-                  <button className="formbutton border-red-500" type="button" onClick={() => remove(index)}>Delete</button>
+                  <button className="formbutton bg-red-500 text-white" type="button" onClick={() => remove(index)}>Delete</button>
                 </li>
               ))}
             </ul>
             <button
               type="button"
-              className='formbutton my-2 mx-0 border-blue-500'
+              className='formbutton my-2 mx-0 bg-blue-500 text-white'
               onClick={() => append({ query: "Query" })}
             >
               Add
@@ -86,12 +87,12 @@ const Form = ({}) => {
         </div>
 
       </div>
-      <input type="submit" className='bg-slate-200 px-4 py-2 mb-4 rounded-lg hover:text-white cursor-pointer' value="Submit" />
+      <input type="submit" className='bg-slate-200 px-4 py-2 mb-4 rounded-lg hover:bg-white cursor-pointer' value="Submit" />
     </form>
 
     {data?(
       <div className='bg-[#0A2647] p-7 rounded-lg leading-7 text-white'>
-      <p dangerouslySetInnerHTML={{__html:data}}></p>
+      <p className='bg-inherit' dangerouslySetInnerHTML={{__html:data}}></p>
       </div>
     ):(
       <>

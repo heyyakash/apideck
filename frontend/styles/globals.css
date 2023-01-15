@@ -6,13 +6,19 @@
   *{
     @apply box-border m-0 p-0;
   }
+  body{
+    @apply bg-slate-100;
+  }
 }
 
 @layer components{
   .text-input{
-    @apply p-1 outline-none border-2;
+    @apply p-1 outline-none border-2 bg-white rounded-lg;
   }
   .formbutton {
-    @apply mx-2 border-[1px] p-1 px-2 ;
+    @apply mx-2 border-[1px] rounded-lg p-1 px-2 ;
+  }
+  .nav-link{
+    @apply m-2 grow h-10 rounded-lg hover:bg-white cursor-pointer grid place-items-center bg-slate-200 text-black;
   }
 }

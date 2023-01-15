@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useFieldArray } from 'react-hook-form'
 
-const Form = () => {
-  type request = {
-    GET: boolean
-  }
+const Form = ({}) => {
+  // type request = {
+  //   e
+  // }
 
 
   const { handleSubmit, control, reset, register } = useForm()
@@ -14,6 +14,9 @@ const Form = () => {
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "Queries", // unique name for your Field Array
   });
+
+  const[success,setSuccess] = useState<Boolean>(false)
+  const[data,setData] = useState<null | string>(null)
 
   const submit = async (data: any) => {
     console.log("Sent")
@@ -30,8 +33,7 @@ const Form = () => {
     setData(result)
   }
 
-  const[success,setSuccess] = useState(false)
-  const[data,setData] = useState(null)
+  
 
   return (
     <>
@@ -68,7 +70,7 @@ const Form = () => {
             <ul>
               {fields.map((item, index) => (
                 <li key={item.id}>
-                  <input className='text-input my-[.1rem]' {...register(`Queries.${index}`)} />
+                  <input className='text-input my-[.1rem]' {...register(`Queries.${index}`)} placeholder = "Query" value={"Query"} />
                   <button className="formbutton border-red-500" type="button" onClick={() => remove(index)}>Delete</button>
                 </li>
               ))}
@@ -84,7 +86,7 @@ const Form = () => {
         </div>
 
       </div>
-      <input type="submit" value="submit" />
+      <input type="submit" className='bg-slate-200 px-4 py-2 mb-4 rounded-lg hover:text-white cursor-pointer' value="Submit" />
     </form>
 
     {data?(

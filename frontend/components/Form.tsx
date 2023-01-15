@@ -12,12 +12,12 @@ const Form = () => {
   const [queries, setQueries] = useState(false);
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "test", // unique name for your Field Array
+    name: "Queries", // unique name for your Field Array
   });
 
   const submit = async (data: any) => {
     console.log("Sent")
-    const res = await fetch('http://192.168.212.50:5000',{
+    const res = await fetch('http://localhost:5000',{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
@@ -68,7 +68,7 @@ const Form = () => {
             <ul>
               {fields.map((item, index) => (
                 <li key={item.id}>
-                  <input className='text-input my-[.1rem]' {...register(`test.${index}.firstName`)} />
+                  <input className='text-input my-[.1rem]' {...register(`Queries.${index}`)} />
                   <button className="formbutton border-red-500" type="button" onClick={() => remove(index)}>Delete</button>
                 </li>
               ))}

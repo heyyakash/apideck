@@ -1,5 +1,5 @@
 const express = require('express');
-const { controller, getController, postController } = require("./ControllerClass")
+const { controller, getController, postController , deleteController} = require("./ControllerClass")
 const fs = require('fs');
 const app = express();
 const cors = require('cors');
@@ -24,6 +24,12 @@ app.post("/post", (req, res) => {
     res.status(200).send(result);
 });
 
+app.post("/delete",(req,res)=>{
+    const {Endpoint,CatchMessage,Queries} = req.body
+    const r = new deleteController(Endpoint,CatchMessage,Queries)
+    const result = r.generate();
+    res.status(200).send(result);
+})
 
 
 

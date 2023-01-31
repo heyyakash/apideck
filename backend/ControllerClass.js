@@ -21,15 +21,16 @@ class getController {
     }
 }
 
-class postController extends getController {
-    constructor(Endpoint,CatchMessage,Queries,Body){
+class bodyController extends getController{
+    constructor(Endpoint,CatchMessage,Queries,Body,Request){
         super(Endpoint,CatchMessage,Queries)
         this.Body = Body
+        this.request = Request
     }
     generate(){
         return `
             <code classname = "bg-inherit">
-            app.post('/${this.Endpoint}',(req,res)=>{<br />
+            app.${this.request}('/${this.Endpoint}',(req,res)=>{<br />
                 &ensp;try{<br />
                     ${this.Queries.length!==0?`&emsp;{${this.Queries}} = req.query<br />`:``}
                     ${this.Body.length!==0?`&emsp;{${this.Body}} = req.body<br />`:``}
@@ -43,6 +44,7 @@ class postController extends getController {
         `
     }
 }
+
 
 class deleteController extends getController {
     constructor(Endpoint , CatchMessage, Queries){
@@ -70,4 +72,4 @@ class deleteController extends getController {
 
 
 
-module.exports = {getController,postController,deleteController}
+module.exports = {getController,deleteController,bodyController}

@@ -1,5 +1,5 @@
 const express = require('express');
-const { controller, getController, postController , deleteController} = require("./ControllerClass")
+const { controller, getController, postController , deleteController, patchController, bodyController} = require("./ControllerClass")
 const fs = require('fs');
 const app = express();
 const cors = require('cors');
@@ -19,7 +19,7 @@ app.post("/get", (req, res) => {
 
 app.post("/post", (req, res) => {
     const { Endpoint, CatchMessage, Queries, Body } = req.body
-    const r = new postController(Endpoint, CatchMessage, Queries, Body)
+    const r = new bodyController(Endpoint, CatchMessage, Queries, Body,'post')
     const result = r.generate()
     res.status(200).send(result);
 });
@@ -30,6 +30,22 @@ app.post("/delete",(req,res)=>{
     const result = r.generate();
     res.status(200).send(result);
 })
+
+
+app.post("/patch", (req, res) => {
+    const { Endpoint, CatchMessage, Queries, Body } = req.body
+    const r = new bodyController(Endpoint, CatchMessage, Queries, Body,'patch')
+    const result = r.generate()
+    res.status(200).send(result);
+});
+
+app.post("/update", (req, res) => {
+    const { Endpoint, CatchMessage, Queries, Body } = req.body
+    const r = new bodyController(Endpoint, CatchMessage, Queries, Body,'update')
+    const result = r.generate()
+    res.status(200).send(result);
+});
+
 
 
 

@@ -9,13 +9,14 @@ type prop = {
 const Form = (props:prop) => {
   const { handleSubmit, control, reset, register } = useForm()
   const [queries, setQueries] = useState(false);
+  
   const { fields:queryField, append:queryAppend,remove:queryRemove} = useFieldArray({
-    control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "Queries", // unique name for your Field Array
+    control,
+    name: "Queries"
   });
   const { fields:bodyField, append:bodyAppend,remove:bodyRemove} = useFieldArray({
-    control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "Body", // unique name for your Field Array
+    control, 
+    name: "Body",
   });
 
   const[success,setSuccess] = useState<Boolean>(false)
@@ -91,7 +92,7 @@ const Form = (props:prop) => {
         </div>
 
 
-{props.Type=="post"?(
+{props.Type=="post" || props.Type=="patch"?(
           <div className='flex flex-col items-start gap-2'>
           <div>
             <label htmlFor="query">Body</label>
